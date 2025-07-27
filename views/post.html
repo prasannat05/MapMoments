@@ -1,0 +1,31 @@
+<section id="post" class="card post-box">
+  <h2>Post a Moment</h2>
+  <form id="postForm">
+    <select id="post-location" required>
+      <option value="" disabled selected>Select Location</option>
+      <option>Library</option>
+      <option>IT Block</option>
+      <option>CSE Block</option>
+      <option>Main Block</option>
+      <option>Auditorium KS</option>
+      <option>Ground</option>
+      <option>Canteen</option>
+    </select>
+    <input type="file" accept="image/*" />
+    <textarea placeholder="What’s Happening?" id="post-text" required></textarea>
+    <select id="post-category" required>
+      <option disabled selected>Choose Category</option>
+      <option>Fun</option>
+      <option>Alert</option>
+      <option>Event</option>
+      <option>Lost & Found</option>
+    </select>
+    <select id="post-expiry" required>
+      <option disabled selected>Expiry Time</option>
+      <option>30 mins</option>
+      <option>1 hr</option>
+      <option>2 hrs</option>
+    </select>
+    <button type="submit">Post Moment</button>
+  </form>
+</section>

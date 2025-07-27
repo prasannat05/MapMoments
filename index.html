@@ -1,109 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="mapMomentsApp">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Map Moments</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Fredoka&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles/style.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+  <script src="app.js"></script>
+  <script src="controllers.js"></script>
 </head>
 <body>
+
   <header>
     <div class="logo">Map Moments</div>
     <nav>
-      <a href="#login">Login</a>
-      <a href="#register">Register</a>
-      <a href="#map">Explore</a>
-      <a href="#post">Post</a>
+      <a href="#!/login">Login</a>
+      <a href="#!/register">Register</a>
+      <a href="#!/map">Explore</a>
+      <a href="#!/post">Post</a>
     </nav>
   </header>
 
-  <main>
-    <!-- Login Page -->
-    <section id="login" class="card auth-box">
-      <h2>Sign in to see what’s happening around campus</h2>
-      <form>
-        <input type="email" placeholder="Enter your email address" required />
-        <input type="password" placeholder="Enter your password" required />
-        <button type="submit">Sign In</button>
-        <p class="redirect">Don’t have an account? <a href="#register">Register</a></p>
-      </form>
-    </section>
+  <main ng-view></main>
 
-    <!-- Register Page -->
-    <section id="register" class="card auth-box">
-      <h2>Register to share your campus moments</h2>
-      <form>
-        <input type="email" placeholder="Enter your email address" required />
-        <input type="text" placeholder="Enter your username" required />
-        <input type="password" placeholder="Enter your password" required />
-        <input type="password" placeholder="Confirm password" required />
-        <button type="submit">Register</button>
-        <p class="redirect">Already have an account? <a href="#login">Login</a></p>
-      </form>
-    </section>
-
-    <!-- Map Page -->
-    <section id="map" class="card map-area">
-      <h2>Every corner has a story — tap to find it.</h2>
-      <img src="images/campus-map.jpg" alt="Campus Map" class="campus-map" />
-      <div class="zone-links">
-        <a href="#feed" data-zone="Library">Library</a>
-        <a href="#feed" data-zone="IT Block">IT Block</a>
-        <a href="#feed" data-zone="CSE Block">CSE Block</a>
-        <a href="#feed" data-zone="Main Block">Main Block</a>
-        <a href="#feed" data-zone="Auditorium KS">Auditorium KS</a>
-        <a href="#feed" data-zone="Ground">Ground</a>
-        <a href="#feed" data-zone="Canteen">Canteen</a>
-      </div>
-    </section>
-
-    <!-- Post Moment Page -->
-    <section id="post" class="card post-box">
-      <h2>Post a Moment</h2>
-      <form id="postForm">
-        <select id="post-location" required>
-          <option value="" disabled selected>Select Location</option>
-          <option>Library</option>
-          <option>IT Block</option>
-          <option>CSE Block</option>
-          <option>Main Block</option>
-          <option>Auditorium KS</option>
-          <option>Ground</option>
-          <option>Canteen</option>
-        </select>
-        <input type="file" accept="image/*" />
-        <textarea placeholder="What’s Happening?" id="post-text" required></textarea>
-        <select id="post-category" required>
-          <option disabled selected>Choose Category</option>
-          <option>Fun</option>
-          <option>Alert</option>
-          <option>Event</option>
-          <option>Lost & Found</option>
-        </select>
-        <select id="post-expiry" required>
-          <option disabled selected>Expiry Time</option>
-          <option>30 mins</option>
-          <option>1 hr</option>
-          <option>2 hrs</option>
-        </select>
-        <button type="submit">Post Moment</button>
-      </form>
-    </section>
-
-    <!-- Feed Page -->
-    <section id="feed" class="card feed-box">
-      <h2 id="feed-title">Live Moments</h2>
-      <div id="feed-list">
-        <!-- Ping posts will appear here -->
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    © 2025 Map Moments — Built with ❤️
-  </footer>
-
-  <script src="scripts/app.js"></script>
 </body>
 </html>
