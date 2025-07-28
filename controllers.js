@@ -1,8 +1,23 @@
-app.controller('AuthController', function($scope) {
-  // Handle login/register form logic here
+app.controller('AuthController', function($scope, $location, AuthService) {
+  $scope.user = {};
+  $scope.login = function() {
+    if (AuthService.login($scope.user)) {
+      $location.path('/map');
+    } else {
+      alert("Invalid credentials");
+    }
+  };
+  $scope.register = function() {
+    if ($scope.user.password !== $scope.user.confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+    AuthService.register($scope.user);
+    $location.path('/login');
+  };
 });
 
-app.controller('MapController', function($scope) {
+app.controller('MapController', function($scope, $location, FeedService) {
   $scope.zones = [
     { name: 'Library', code: 'L' },
     { name: 'IT Block', code: 'I' },
@@ -12,7 +27,6 @@ app.controller('MapController', function($scope) {
     { name: 'Ground', code: 'G' },
     { name: 'Canteen', code: 'Ct' }
   ];
-
   $scope.zoneInfo = {
     "Library": "The library houses thousands of books and offers quiet study spaces.",
     "IT Block": "IT Block includes computer labs, server rooms, and tech offices.",
@@ -22,17 +36,28 @@ app.controller('MapController', function($scope) {
     "Ground": "The ground is used for sports and outdoor events.",
     "Canteen": "The canteen offers a variety of snacks and refreshments."
   };
-
   $scope.selectedZone = null;
-  $scope.selectZone = function(zone) {
-    $scope.selectedZone = zone;
+  $scope.selectZone = function(zoneName) {
+    $scope.selectedZone = zoneName;
+    FeedService.setSelectedZone(zoneName);
+    $location.path('/feed');
   };
 });
 
-app.controller('PostController', function($scope, $location, FeedService) {
+app.controller('PostController', function($scope, $location, FeedService, AuthService) {
   $scope.moment = {};
-
+  $scope.handleImage = function(element) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      $scope.$apply(function() {
+        $scope.moment.image = e.target.result;
+      });
+    };
+    if (element.files[0]) reader.readAsDataURL(element.files[0]);
+  };
   $scope.submitPost = function() {
+    var user = AuthService.getCurrentUser();
+    $scope.moment.user = user ? user.username : 'Anonymous';
     FeedService.addPing($scope.moment);
     $location.path('/feed');
   };
@@ -41,23 +66,4 @@ app.controller('PostController', function($scope, $location, FeedService) {
 app.controller('FeedController', function($scope, FeedService) {
   $scope.selectedZone = FeedService.getSelectedZone();
   $scope.pings = FeedService.getPings($scope.selectedZone);
-});
-
-app.factory('FeedService', function() {
-  var pings = [];
-  var selectedZone = 'Canteen';
-
-  return {
-    addPing: function(data) {
-      data.user = 'Anonymous';
-      pings.push(data);
-      selectedZone = data.location;
-    },
-    getSelectedZone: function() {
-      return selectedZone;
-    },
-    getPings: function(zone) {
-      return pings.filter(p => p.location === zone);
-    }
-  };
 });

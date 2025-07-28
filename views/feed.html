@@ -1,6 +1,15 @@
-<section id="feed" class="card feed-box">
-  <h2 id="feed-title">Live Moments</h2>
+<section class="card feed-box">
+  <h2>Live Moments at {{selectedZone}}</h2>
+
   <div id="feed-list">
-    <!-- Ping posts will appear here -->
+    <p ng-if="pings.length === 0">No moments here yet. Be the first to post!</p>
+
+    <div class="ping" ng-repeat="ping in pings">
+      <h3>{{ping.user}} - {{ping.location}}</h3>
+      <p><strong>Category:</strong> {{ping.category}}</p>
+      <p>{{ping.text}}</p>
+      <img ng-if="ping.image" ng-src="{{ping.image}}" alt="Post image" style="max-width: 200px;" />
+      <p><em>Expires in: {{ping.expiry}}</em></p>
+    </div>
   </div>
 </section>

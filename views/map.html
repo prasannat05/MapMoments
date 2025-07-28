@@ -1,24 +1,27 @@
-<section id="map" class="card map-area">
+<section id="map" class="card map-area" ng-controller="MapController">
   <h2>Every corner has a story — tap to find it.</h2>
+
   <div class="map-container">
     <img src="images/campus-map.png" alt="Campus Map" class="campus-map" />
-    <div class="hotspot" data-zone="Library" style="top: 59%; left: 65%;">L</div>
-    <div class="hotspot" data-zone="IT Block" style="top: 40%; left: 8%;">I</div>
-    <div class="hotspot" data-zone="CSE Block" style="top: 56%; left: 8%;">C</div>
-    <div class="hotspot" data-zone="Main Block" style="top: 60%; left: 37%;">M</div>
-    <div class="hotspot" data-zone="Auditorium KS" style="top: 60%; left: 52%;">A</div>
-    <div class="hotspot" data-zone="Ground" style="top: 85%; left: 70%;">G</div>
-    <div class="hotspot" data-zone="Canteen" style="top: 89%; left: 29%;">Ct</div>
-    <div class="info-box" id="infoBox"></div>
+
+    <div class="hotspot" ng-click="selectZone('Library')" style="top: 59%; left: 65%;" aria-label="Library">L</div>
+    <div class="hotspot" ng-click="selectZone('IT Block')" style="top: 40%; left: 8%;" aria-label="IT Block">I</div>
+    <div class="hotspot" ng-click="selectZone('CSE Block')" style="top: 56%; left: 8%;" aria-label="CSE Block">C</div>
+    <div class="hotspot" ng-click="selectZone('Main Block')" style="top: 60%; left: 37%;" aria-label="Main Block">M</div>
+    <div class="hotspot" ng-click="selectZone('Auditorium KS')" style="top: 60%; left: 52%;" aria-label="Auditorium KS">A</div>
+    <div class="hotspot" ng-click="selectZone('Ground')" style="top: 85%; left: 70%;" aria-label="Ground">G</div>
+    <div class="hotspot" ng-click="selectZone('Canteen')" style="top: 89%; left: 29%;" aria-label="Canteen">Ct</div>
+
+    <div class="info-box" ng-show="selectedZone" ng-bind="zoneInfo[selectedZone]"></div>
   </div>
 
   <div class="zone-links">
-    <a href="#feed" data-zone="Library">Library</a>
-    <a href="#feed" data-zone="IT Block">IT Block</a>
-    <a href="#feed" data-zone="CSE Block">CSE Block</a>
-    <a href="#feed" data-zone="Main Block">Main Block</a>
-    <a href="#feed" data-zone="Auditorium KS">Auditorium KS</a>
-    <a href="#feed" data-zone="Ground">Ground</a>
-    <a href="#feed" data-zone="Canteen">Canteen</a>
+    <a href="" ng-click="selectZone('Library')">Library</a>
+    <a href="" ng-click="selectZone('IT Block')">IT Block</a>
+    <a href="" ng-click="selectZone('CSE Block')">CSE Block</a>
+    <a href="" ng-click="selectZone('Main Block')">Main Block</a>
+    <a href="" ng-click="selectZone('Auditorium KS')">Auditorium KS</a>
+    <a href="" ng-click="selectZone('Ground')">Ground</a>
+    <a href="" ng-click="selectZone('Canteen')">Canteen</a>
   </div>
 </section>

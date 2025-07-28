@@ -1,10 +1,8 @@
 <section id="register" class="card auth-box">
   <h2>Register to share your campus moments</h2>
-  <form>
-    <input type="email" placeholder="Enter your email address" required />
-    <input type="text" placeholder="Enter your username" required />
-    <input type="password" placeholder="Enter your password" required />
-    <input type="password" placeholder="Confirm password" required />
+  <form ng-submit="register(user)">
+    <input type="email" placeholder="Enter your email address" ng-model="user.email" required />
+    <input type="password" placeholder="Enter your password" ng-model="user.password" required />
     <button type="submit">Register</button>
     <p class="redirect">Already have an account? <a href="#!/login">Login</a></p>
   </form>
