@@ -1,12 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Fredoka&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 :root {
-  --bg: #bb7eac;
-  --primary: #3a2f3a;
-  --secondary: #d3d3d3;
-  --accent: #d9a31c;
-  --card: #9b6f95;
-  --white: #ffffff;
+  --bg: #25b9f4;
+  --primary: #000000;
+  --secondary: #ffffff;
+  --accent: #ff2d75;
+  --card: #0e2bbab3;
+  --white: #ffffffcd;
 }
 
 body {
@@ -37,7 +37,7 @@ nav a {
   color: white;
   text-decoration: none;
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 1.5rem;
   position: relative;
   padding-bottom: 2px;
   transition: color 0.3s;
