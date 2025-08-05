@@ -1,4 +1,4 @@
-var app = angular.module('mapMomentsApp', ['ngRoute']);
+var app = angular.module('mapMomentsApp', ['ngRoute', 'ngAnimate']);
 
 app.config(function($routeProvider) {
   $routeProvider
@@ -27,6 +27,7 @@ app.config(function($routeProvider) {
     });
 });
 
+// Simple in-memory Auth for demo purposes
 app.factory('AuthService', function() {
   var users = [];
   var currentUser = null;
@@ -68,4 +69,15 @@ app.factory('FeedService', function() {
       return pings.filter(p => p.location === zone);
     }
   };
+});
+
+// For better navigation and global avatar
+app.run(function($rootScope, AuthService, $location) {
+  $rootScope.$on('$routeChangeStart', function() {
+    $rootScope.currentUser = AuthService.getCurrentUser();
+    $rootScope.goHome = function() {
+      $location.path('/map');
+    }
+    $rootScope.$location = $location;
+  });
 });

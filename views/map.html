@@ -1,27 +1,13 @@
 <section id="map" class="card map-area" ng-controller="MapController">
   <h2>Every corner has a story — tap to find it.</h2>
-
   <div class="map-container">
     <img src="images/campus-map.png" alt="Campus Map" class="campus-map" />
-
-    <div class="hotspot" ng-click="selectZone('Library')" style="top: 59%; left: 65%;" aria-label="Library">L</div>
-    <div class="hotspot" ng-click="selectZone('IT Block')" style="top: 40%; left: 8%;" aria-label="IT Block">I</div>
-    <div class="hotspot" ng-click="selectZone('CSE Block')" style="top: 56%; left: 8%;" aria-label="CSE Block">C</div>
-    <div class="hotspot" ng-click="selectZone('Main Block')" style="top: 60%; left: 37%;" aria-label="Main Block">M</div>
-    <div class="hotspot" ng-click="selectZone('Auditorium KS')" style="top: 60%; left: 52%;" aria-label="Auditorium KS">A</div>
-    <div class="hotspot" ng-click="selectZone('Ground')" style="top: 85%; left: 70%;" aria-label="Ground">G</div>
-    <div class="hotspot" ng-click="selectZone('Canteen')" style="top: 89%; left: 29%;" aria-label="Canteen">Ct</div>
-
-    <div class="info-box" ng-show="selectedZone" ng-bind="zoneInfo[selectedZone]"></div>
-  </div>
-
-  <div class="zone-links">
-    <a href="" ng-click="selectZone('Library')">Library</a>
-    <a href="" ng-click="selectZone('IT Block')">IT Block</a>
-    <a href="" ng-click="selectZone('CSE Block')">CSE Block</a>
-    <a href="" ng-click="selectZone('Main Block')">Main Block</a>
-    <a href="" ng-click="selectZone('Auditorium KS')">Auditorium KS</a>
-    <a href="" ng-click="selectZone('Ground')">Ground</a>
-    <a href="" ng-click="selectZone('Canteen')">Canteen</a>
+    <div class="hotspot" ng-repeat="zone in zones"
+         ng-click="selectZone(zone.name)"
+         style="top: {{ {'Library':59, 'IT Block':40, 'CSE Block':56, 'Main Block':60, 'Auditorium KS':60, 'Ground':85, 'Canteen':89 }[zone.name] }}%; left: {{ {'Library':65, 'IT Block':8, 'CSE Block':8, 'Main Block':37, 'Auditorium KS':52, 'Ground':70, 'Canteen':29 }[zone.name] }}%;"
+         aria-label="{{zone.name}}">
+      {{zone.code}}
+    </div>
+    <div class="info-box" ng-show="selectedZone" style="left:45%;top:6%" ng-bind="zoneInfo[selectedZone]"></div>
   </div>
 </section>

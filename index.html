@@ -4,26 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Map Moments</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles/style.css" />
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-animate.min.js"></script>
   <script src="app.js"></script>
   <script src="controllers.js"></script>
 </head>
 <body>
-
   <header>
-    <div class="logo">Map Moments</div>
+    <div class="logo" ng-click="goHome()">Map Moments</div>
     <nav>
-      <a href="#!/login">Login</a>
-      <a href="#!/register">Register</a>
-      <a href="#!/map">Explore</a>
-      <a href="#!/post">Post</a>
+      <a href="#!/login" ng-class="{active: $location.path() === '/login'}">Login</a>
+      <a href="#!/register" ng-class="{active: $location.path() === '/register'}">Register</a>
+      <a href="#!/map" ng-class="{active: $location.path() === '/map'}">Explore</a>
+      <a href="#!/post" ng-class="{active: $location.path() === '/post'}">Post</a>
+      <span ng-if="currentUser" class="nav-avatar" title="Profile">{{currentUser.email.charAt(0).toUpperCase()}}</span>
     </nav>
   </header>
-
   <main ng-view></main>
-
 </body>
 </html>

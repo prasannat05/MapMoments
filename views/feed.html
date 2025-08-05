@@ -1,10 +1,8 @@
 <section class="card feed-box">
   <h2>Live Moments at {{selectedZone}}</h2>
-
   <div id="feed-list">
     <p ng-if="pings.length === 0">No moments here yet. Be the first to post!</p>
-
-    <div class="ping" ng-repeat="ping in pings">
+    <div class="ping" ng-repeat="ping in pings track by $index" ng-animate="'animate'">
       <h3>{{ping.user}} - {{ping.location}}</h3>
       <p><strong>Category:</strong> {{ping.category}}</p>
       <p>{{ping.text}}</p>
