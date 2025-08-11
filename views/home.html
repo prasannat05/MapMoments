@@ -1,0 +1,11 @@
+<section class="card home-screen">
+  <h2>Welcome {{user.username}}</h2>
+  <p ng-if="isGuest">You are continuing as a guest. Access to create posts or see your profile is limited.</p>
+  <p ng-if="!isGuest">Navigate to Map, Create Posts, or View Feeds based on activity!</p>
+  <div class="zone-links">
+    <a href="#!/map">View Map</a>
+    <a href="#!/feed" ng-if="isGuest">View Feed</a>
+    <a href="#!/post" ng-if="!isGuest">Create Post</a>
+    <a href="#!/profile" ng-if="!isGuest">Profile</a>
+  </div>
+</section>

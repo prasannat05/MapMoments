@@ -1,40 +1,44 @@
 <section id="post" class="card post-box">
   <h2>Post a Moment</h2>
-  <form name="postForm" id="postForm" ng-submit="submitPost()" novalidate autocomplete="off">
-    <select name="location" id="post-location" ng-model="moment.location" required>
+  <form name="postForm" ng-submit="submitPost(postForm)" novalidate autocomplete="off">
+    <select name="location" ng-model="moment.location" required ng-options="zone for zone in ['Library', 'IT Block', 'CSE Block', 'Main Block', 'Auditorium KS', 'Ground', 'Canteen']">
       <option value="" disabled selected>Select Location</option>
-      <option>Library</option>
-      <option>IT Block</option>
-      <option>CSE Block</option>
-      <option>Main Block</option>
-      <option>Auditorium KS</option>
-      <option>Ground</option>
-      <option>Canteen</option>
     </select>
-    <p class="error" ng-show="postForm.location.$touched && postForm.location.$error.required">Location is required.</p>
+    <p class="error" ng-show="(postForm.location.$touched||postForm.$submitted) && postForm.location.$error.required">Location is required.</p>
 
     <input type="file" accept="image/*" onchange="angular.element(this).scope().handleImage(this)" />
 
-    <textarea name="text" placeholder="What’s Happening?" id="post-text" ng-model="moment.text" required></textarea>
-    <p class="error" ng-show="postForm.text.$touched && postForm.text.$error.required">Text is required.</p>
+    <textarea name="text" placeholder="What’s Happening?" ng-model="moment.text" required ng-minlength="5"></textarea>
+    <p class="error" ng-show="(postForm.text.$touched||postForm.$submitted) && postForm.text.$error.required">Text is required.</p>
+    <p class="error" ng-show="postForm.text.$dirty && postForm.text.$error.minlength">Text too short.</p>
 
-    <select name="category" id="post-category" ng-model="moment.category" required>
-      <option disabled selected>Choose Category</option>
+    <select name="category" ng-model="moment.category" required>
+      <option value="" disabled selected>Choose Category</option>
       <option>Fun</option>
       <option>Alert</option>
       <option>Event</option>
       <option>Lost & Found</option>
+      <option>Notice</option>
+      <option>Feedback</option>
+      <option>Announcement</option>
+      <option>Help</option>
+      <option>Suggestion</option>
+      <option>Question</option>
+      <option>Other</option>
+      
     </select>
-    <p class="error" ng-show="postForm.category.$touched && postForm.category.$error.required">Category is required.</p>
+    <p class="error" ng-show="(postForm.category.$touched||postForm.$submitted) && postForm.category.$error.required">Category is required.</p>
 
-    <select name="expiry" id="post-expiry" ng-model="moment.expiry" required>
-      <option disabled selected>Expiry Time</option>
+    <select name="expiry" ng-model="moment.expiry" required>
+      <option value="" disabled selected>Expiry Time</option>
       <option>30 mins</option>
       <option>1 hr</option>
       <option>2 hrs</option>
     </select>
-    <p class="error" ng-show="postForm.expiry.$touched && postForm.expiry.$error.required">Expiry time is required.</p>
+    <p class="error" ng-show="(postForm.expiry.$touched||postForm.$submitted) && postForm.expiry.$error.required">Expiry time is required.</p>
 
     <button type="submit" ng-disabled="postForm.$invalid">Post Moment</button>
+
+    <p class="error" ng-show="postError">{{postError}}</p>
   </form>
 </section>

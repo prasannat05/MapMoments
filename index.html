@@ -14,13 +14,22 @@
 </head>
 <body>
   <header>
-    <div class="logo" ng-click="goHome()">Map Moments</div>
+    <div class="logo" ng-click="goHome()" style="cursor:pointer" title="Go Home">
+      Map Moments
+    </div>
     <nav>
-      <a href="#!/login" ng-class="{active: $location.path() === '/login'}">Login</a>
-      <a href="#!/register" ng-class="{active: $location.path() === '/register'}">Register</a>
-      <a href="#!/map" ng-class="{active: $location.path() === '/map'}">Explore</a>
-      <a href="#!/post" ng-class="{active: $location.path() === '/post'}">Post</a>
-      <span ng-if="currentUser" class="nav-avatar" title="Profile">{{currentUser.email.charAt(0).toUpperCase()}}</span>
+      <a href="#!/map" ng-if="currentUser">Map</a>
+      <a href="#!/feed" ng-if="isGuest">Feed</a>
+      <a href="#!/post" ng-if="isAuthenticated">Post</a>
+      <a href="#!/settings" ng-if="isAuthenticated">Settings</a>
+      <a href="" ng-click="logout()" ng-if="currentUser">Logout</a>
+      <span ng-if="currentUser" 
+            class="nav-avatar" 
+            ng-click="isAuthenticated ? goProfile() : null" 
+            style="cursor: pointer;" 
+            title="{{ isAuthenticated ? 'Go to Profile' : '' }}">
+        {{currentUser.username ? currentUser.username.charAt(0).toUpperCase() : currentUser.email.charAt(0).toUpperCase()}}
+      </span>
     </nav>
   </header>
   <main ng-view></main>
