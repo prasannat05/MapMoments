@@ -11,9 +11,9 @@
   --error: #e74c3c;
   --success: #3cc96f;
   --input: #f5f8fa;
-  --nav-bg: rgba(255,255,255,0.99);
+  --nav-bg: rgba(255, 255, 255, 0.99);
   --nav-border: #dde6f2;
-  --shadow: 0 10px 28px rgba(23,38,70,0.11);
+  --shadow: 0 10px 28px rgba(23, 38, 70, 0.11);
 }
 
 body {
@@ -71,7 +71,8 @@ nav a.active {
 }
 
 .nav-avatar {
-  width: 37px; height: 37px;
+  width: 37px;
+  height: 37px;
   border-radius: 50%;
   background: linear-gradient(125deg, var(--accent), var(--accent-dark));
   display: inline-flex;
@@ -81,7 +82,7 @@ nav a.active {
   font-weight: 700;
   font-size: 1.1em;
   margin-left: 1.5rem;
-  box-shadow: 0 2px 8px rgba(200,170,40,0.1);
+  box-shadow: 0 2px 8px rgba(200, 170, 40, 0.1);
   border: 2.5px solid var(--bg);
 }
 
@@ -143,7 +144,7 @@ input[type="file"] {
   gap: 0.85em;
 }
 
-.form-row > .form-icon {
+.form-row>.form-icon {
   font-size: 1.16em;
   color: var(--primary);
   width: 23px;
@@ -173,7 +174,7 @@ button {
   cursor: pointer;
   transition: background 0.16s, transform 0.11s;
   display: block;
-  box-shadow: 0 6px 13px rgba(245,203,64,0.07);
+  box-shadow: 0 6px 13px rgba(245, 203, 64, 0.07);
 }
 
 button:hover,
@@ -260,7 +261,7 @@ button:focus {
   font-size: 24px;
   user-select: none;
   transition: transform 0.22s, background 0.21s;
-  box-shadow: 0 2px 7px rgba(245,203,64,0.12);
+  box-shadow: 0 2px 7px rgba(245, 203, 64, 0.12);
 }
 
 .hotspot:hover,
@@ -277,7 +278,7 @@ button:focus {
   border: 1.8px solid var(--accent-dark);
   padding: 20px 25px;
   border-radius: 12px 12px 12px 5px;
-  box-shadow: 0 4px 19px rgba(20,35,85,0.12);
+  box-shadow: 0 4px 19px rgba(20, 35, 85, 0.12);
   max-width: 320px;
   font-size: 1.04rem;
   color: var(--primary);
@@ -302,13 +303,20 @@ button:focus {
   padding: 1rem 1.18rem;
   margin: 1.08rem 0;
   border-radius: 0.8rem;
-  box-shadow: 0 2px 8px rgba(32,48,72,0.08);
+  box-shadow: 0 2px 8px rgba(32, 48, 72, 0.08);
   animation: pingIn 0.45s;
 }
 
 @keyframes pingIn {
-  from {opacity:0; transform:translateY(22px);}
-  to {opacity:1; transform:translateY(0);}
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .ping img {
@@ -316,15 +324,20 @@ button:focus {
   margin-bottom: 0.6em;
   border-radius: 0.4em;
   border: 1px solid var(--nav-border);
-  box-shadow: 0 2px 6px rgba(190,160,61,0.08);
+  box-shadow: 0 2px 6px rgba(190, 160, 61, 0.08);
 }
 
 .ping h3 {
   font-size: 1.09em;
-  margin-top: 0; margin-bottom: 0.18em;
+  margin-top: 0;
+  margin-bottom: 0.18em;
   font-weight: 600;
 }
-.ping p { margin-top: 0.15em; margin-bottom: 0.5em; }
+
+.ping p {
+  margin-top: 0.15em;
+  margin-bottom: 0.5em;
+}
 
 .error {
   color: var(--error);
@@ -336,7 +349,88 @@ button:focus {
   gap: 0.4em;
 }
 
-::-webkit-input-placeholder { color: #8893a1; }
-::-moz-placeholder { color: #8893a1; }
-:-ms-input-placeholder { color: #8893a1; }
-::placeholder { color: #8893a1; }
+.reactions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.6rem;
+}
+
+.reaction-btn {
+  background: var(--secondary);
+  color: var(--primary);
+  border: 1px solid #cfd8e5;
+  border-radius: 0.6rem;
+  padding: 0.4rem 0.8rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reaction-btn:hover {
+  background: var(--accent-dark);
+  color: white;
+  transform: scale(1.1);
+}
+
+.dark-toggle {
+  font-size: 1.3rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  margin-left: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.dark-toggle:hover {
+  transform: scale(1.2);
+}
+
+body.dark-mode {
+  background-color: #1e1e2f;
+  color: #e0e0f0;
+}
+
+body.dark-mode .card {
+  background-color: #2c2c3e;
+  border-color: #3a3a50;
+}
+
+body.dark-mode nav a,
+body.dark-mode .zone-links a {
+  color: #e0e0f0;
+}
+
+body.dark-mode nav a:hover,
+body.dark-mode .zone-links a:hover {
+  background: #3a3a50;
+  color: var(--accent);
+}
+
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea {
+  background: #2e2e3f;
+  color: #f0f0f0;
+  border-color: #44445a;
+}
+
+body.dark-mode .reaction-btn {
+  background: #383850;
+  color: #f0f0f0;
+}
+
+::-webkit-input-placeholder {
+  color: #8893a1;
+}
+
+::-moz-placeholder {
+  color: #8893a1;
+}
+
+:-ms-input-placeholder {
+  color: #8893a1;
+}
+
+::placeholder {
+  color: #8893a1;
+}

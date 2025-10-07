@@ -1,14 +1,14 @@
-app.controller('AuthController', function($scope, $location, AuthService) {
+app.controller('AuthController', function ($scope, $location, AuthService) {
   $scope.user = {};
-  $scope.authMode = 'login'; 
+  $scope.authMode = 'login';
   $scope.authError = '';
 
-  $scope.toggleMode = function(mode) {
+  $scope.toggleMode = function (mode) {
     $scope.authError = '';
     $scope.authMode = mode;
   };
 
-  $scope.submit = function(welcomeForm) {
+  $scope.submit = function (welcomeForm) {
     $scope.authError = '';
     if ($scope.authMode === 'login') {
       if (welcomeForm.$invalid) {
@@ -44,18 +44,18 @@ app.controller('AuthController', function($scope, $location, AuthService) {
     }
   };
 
-  $scope.continueAsGuest = function() {
+  $scope.continueAsGuest = function () {
     AuthService.loginAsGuest();
     $location.path('/home');
   };
 });
 
-app.controller('HomeController', function($scope, AuthService) {
+app.controller('HomeController', function ($scope, AuthService) {
   $scope.user = AuthService.getCurrentUser();
   $scope.isGuest = AuthService.isGuest();
 });
 
-app.controller('MapController', function($scope, $location, FeedService) {
+app.controller('MapController', function ($scope, $location, FeedService) {
   $scope.zones = [
     { name: 'Library', code: 'L' },
     { name: 'IT Block', code: 'I' },
@@ -75,22 +75,50 @@ app.controller('MapController', function($scope, $location, FeedService) {
     "Canteen": "The canteen offers a variety of snacks and refreshments."
   };
   $scope.selectedZone = null;
-  $scope.selectZone = function(zoneName) {
+  $scope.selectZone = function (zoneName) {
     $scope.selectedZone = zoneName;
     FeedService.setSelectedZone(zoneName);
     $location.path('/feed');
   };
 });
 
-app.controller('FeedController', function($scope, FeedService, AuthService) {
+app.controller('FeedController', function ($scope, FeedService, AuthService) {
   $scope.selectedZone = FeedService.getSelectedZone();
   $scope.pings = FeedService.getPings($scope.selectedZone);
 
   $scope.isGuest = AuthService.isGuest();
   $scope.isAuthenticated = AuthService.isAuthenticated();
+  $scope.react = function (ping, type) {
+    ping.reactions[type]++;
+    localStorage.setItem("mm_pings", JSON.stringify(FeedService.getAllPings()));
+  };
+  function getRemainingTime(expiryText, timestamp) {
+    let expiryMinutes = 30;
+    if (expiryText === '1 hr') expiryMinutes = 60;
+    else if (expiryText === '2 hrs') expiryMinutes = 120;
+
+    const expiryTime = new Date(timestamp).getTime() + expiryMinutes * 60000;
+    const now = Date.now();
+    const diff = expiryTime - now;
+
+    if (diff <= 0) return "Expired";
+    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const secs = Math.floor((diff % (1000 * 60)) / 1000);
+    return `${mins}m ${secs}s`;
+  }
+
+  $scope.updateTimers = function () {
+    $scope.pings.forEach(p => {
+      p.timeLeft = getRemainingTime(p.expiry, p.timestamp);
+    });
+  };
+
+  setInterval($scope.updateTimers, 1000);
+  $scope.updateTimers();
+
 });
 
-app.controller('PostController', function($scope, $location, FeedService, AuthService) {
+app.controller('PostController', function ($scope, $location, FeedService, AuthService) {
   var user = AuthService.getCurrentUser();
   if (!user || AuthService.isGuest()) {
     alert("Login Required to post.");
@@ -100,17 +128,17 @@ app.controller('PostController', function($scope, $location, FeedService, AuthSe
   $scope.moment = {};
   $scope.postError = "";
 
-  $scope.handleImage = function(element) {
+  $scope.handleImage = function (element) {
     var reader = new FileReader();
-    reader.onload = function(e) {
-      $scope.$apply(function() {
+    reader.onload = function (e) {
+      $scope.$apply(function () {
         $scope.moment.image = e.target.result;
       });
     };
     if (element.files[0]) reader.readAsDataURL(element.files[0]);
   };
 
-  $scope.submitPost = function(postForm) {
+  $scope.submitPost = function (postForm) {
     $scope.postError = "";
     if (postForm.$invalid) {
       $scope.postError = "Please fill all required fields.";
@@ -126,18 +154,18 @@ app.controller('PostController', function($scope, $location, FeedService, AuthSe
   };
 });
 
-app.controller('ProfileController', function($scope, AuthService, FeedService, $location) {
+app.controller('ProfileController', function ($scope, AuthService, FeedService, $location) {
   var currentUser = AuthService.getCurrentUser();
   if (!currentUser || currentUser.isGuest) {
     $location.path('/home');
   }
   $scope.currentUser = currentUser;
-  $scope.userPosts = FeedService.getAllPings().filter(function(p) {
+  $scope.userPosts = FeedService.getAllPings().filter(function (p) {
     return p.user === currentUser.username;
   });
 });
 
-app.controller('SettingsController', function($scope, AuthService, $location) {
+app.controller('SettingsController', function ($scope, AuthService, $location) {
   if (!AuthService.isAuthenticated()) {
     $location.path('/home');
   }

@@ -6,8 +6,14 @@
       <h3>{{ping.user}} - {{ping.location}}</h3>
       <p><strong>Category:</strong> {{ping.category}}</p>
       <p>{{ping.text}}</p>
+      <div class="reactions">
+        <button class="reaction-btn" ng-click="react(ping, 'like')">👍 {{ping.reactions.like}}</button>
+        <button class="reaction-btn" ng-click="react(ping, 'love')">❤️ {{ping.reactions.love}}</button>
+        <button class="reaction-btn" ng-click="react(ping, 'fun')">😂 {{ping.reactions.fun}}</button>
+      </div>
+
       <img ng-if="ping.image" ng-src="{{ping.image}}" alt="Post image" style="max-width: 200px;" />
-      <p><em>Expires in: {{ping.expiry}}</em></p>
+      <p><em>Time Left: {{ping.timeLeft}}</em></p>
     </div>
   </div>
 </section>
