@@ -2,11 +2,12 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone') {
-            steps {
-                git 'https://github.com/prasannat05/MapMoments.git'
-            }
-        }
+       stage('Clone') {
+    steps {
+        git branch: 'main', url: 'https://github.com/prasannat05/MapMoments.git'
+    }
+}
+
         stage('Build') {
             steps {
                 echo 'Building...'
